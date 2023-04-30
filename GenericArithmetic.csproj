@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net45;net46;net48;netstandard2.1;netcoreapp3.1;net5.0;net7.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Title>ExtendedArithmetic.GenericArithmetic</Title>
+		<Product>ExtendedArithmetic.GenericArithmetic</Product>
+		<AssemblyName>ExtendedArithmetic.GenericArithmetic</AssemblyName>
+		<AssemblyTitle>ExtendedArithmetic.GenericArithmetic</AssemblyTitle>
+		<PackageId>ExtendedArithmetic.GenericArithmetic</PackageId>
+		<Description>A generic arithmetic library. Allow you to perform arithmetic on any numeric type. All .NET numeric value types, and any custom numeric types--just overload the numeric operators.</Description>
+		<Authors>Adam White</Authors>
+		<Company>Adam White</Company>
+		<Copyright>Made by Adam White</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>generic math maths mathematics arithmetic numeric numerics numbers polymorphic dynamic variant extended value reference type types arbitrary biginteger complex integer decimal double float short long any csharp</PackageTags>
+		<PackageProjectUrl>https://www.nuget.org/packages/ExtendedArithmetic.GenericArithmetic</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/AdamWhiteHat/GenericArithmetic</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+
+		<Version>$([System.DateTime]::Now.ToString("yyyy."$([System.DateTime]::Now.DayOfYear)".HHmm"))</Version>
+		<AssemblyVersion>$([System.DateTime]::Now.ToString("yyyy."$([System.DateTime]::Now.DayOfYear)".HHmm"))</AssemblyVersion>
+		<FileVersion>$([System.DateTime]::Now.ToString("yyyy."$([System.DateTime]::Now.DayOfYear)".HHmm"))</FileVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
