@@ -30,7 +30,7 @@ namespace ExtendedArithmetic
 		private static Dictionary<ExpressionType, Func<T, T, bool>> _comparisonExpressionDictionary;
 
 		private static Func<T, int, T> _powerIntFunction = null;
-		private static Func<T, int, T, T> _modpowFunction = null;
+		private static Func<T, T, T, T> _modpowFunction = null;
 		private static Func<T, double, T> _logFunction = null;
 		private static Func<T, byte[]> _getBytesFunction = null;
 		private static Func<byte[]> _toBytesArrayFunction = null;
@@ -327,7 +327,6 @@ namespace ExtendedArithmetic
 			MethodInfo method = null;
 			Expression methodCall_AutoConversion = null;
 
-
 			if (GenericArithmeticCommon.IsArithmeticValueType(typeFromHandle))
 			{
 				method = typeof(Math).GetMethod("Pow", BindingFlags.Static | BindingFlags.Public);
@@ -350,6 +349,7 @@ namespace ExtendedArithmetic
 				}
 				else
 				{
+
 					Type returnType = method.ReturnType;
 
 					ParameterInfo baseParameterInfo = method.GetParameters()[0];
@@ -434,7 +434,7 @@ namespace ExtendedArithmetic
 		/// <summary>
 		/// Returns a delegate that calls the static method T.ModPow method on the type T, if it exists.
 		/// </summary>
-		public static Func<T, int, T, T> CreateModPowFunction()
+		public static Func<T, T, T, T> CreateModPowFunction()
 		{
 			Type typeFromHandle = typeof(T);
 			if (_modpowFunction != null)
@@ -452,7 +452,7 @@ namespace ExtendedArithmetic
 			ParameterExpression exp = Expression.Parameter(typeFromHandle, "exponent");
 			ParameterExpression mod = Expression.Parameter(typeFromHandle, "modulus");
 			MethodCallExpression methodCall = Expression.Call(method, val, exp, mod);
-			Func<T, int, T, T> result = Expression.Lambda<Func<T, int, T, T>>(methodCall, val, exp, mod).Compile();
+			Func<T, T, T, T> result = Expression.Lambda<Func<T, T, T, T>>(methodCall, val, exp, mod).Compile();
 			_modpowFunction = result;
 			return result;
 		}

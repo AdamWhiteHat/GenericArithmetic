@@ -22,6 +22,10 @@ namespace ExtendedArithmetic
 		private static MethodInfo _memberwiseCloneFunction = null;
 		private static IFormatProvider _formatProvider = null;
 
+		/// <summary>
+		/// Static type constructor.
+		/// Initializes static members of the <see cref="GenericArithmetic{T}"/> class.
+		/// </summary>
 		static GenericArithmetic()
 		{
 			_formatProvider = CultureInfo.CurrentCulture;
@@ -35,9 +39,6 @@ namespace ExtendedArithmetic
 		/// <summary>
 		/// Converts the specified value.
 		/// </summary>
-		/// <typeparam name="TFrom">The type of the t from.</typeparam>
-		/// <param name="value">The value.</param>
-		/// <returns>T.</returns>
 		public static T Convert<TFrom>(TFrom value)
 		{
 			if (typeof(T) == typeof(Complex))
@@ -108,17 +109,9 @@ namespace ExtendedArithmetic
 		/// <param name="base">The number to raise to the exponent power.</param>
 		/// <param name="exponent">The exponent to raise the base by.</param>
 		/// <returns>The result of raising the base to the exponent.</returns>
-		public static T Power(T @base, int exponent)
+		public static T PowerInt(T @base, int exponent)
 		{
-			Func<T, int, T> powerIntFunc = GenericArithmeticFactory<T>.CreatePowerIntFunction();
-			if (powerIntFunc != null)
-			{
-				return powerIntFunc.Invoke(@base, exponent);
-			}
-			else
-			{
-				return Power(@base, ConvertImplementation<int, T>.Convert(exponent));
-			}
+			return GenericArithmeticFactory<T>.CreatePowerIntFunction().Invoke(@base, exponent);
 		}
 
 		/// <summary>
@@ -135,8 +128,6 @@ namespace ExtendedArithmetic
 		/// <summary>
 		/// Negates the specified value.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <returns>T.</returns>
 		public static T Negate(T value)
 		{
 			return Multiply(value, MinusOne);
@@ -145,8 +136,6 @@ namespace ExtendedArithmetic
 		/// <summary>
 		/// Increments the specified value.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <returns>T.</returns>
 		public static T Increment(T value)
 		{
 			return Add(value, One);
@@ -155,19 +144,14 @@ namespace ExtendedArithmetic
 		/// <summary>
 		/// Decrements the specified value.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <returns>T.</returns>
 		public static T Decrement(T value)
 		{
 			return Subtract(value, One);
 		}
 
 		/// <summary>
-		/// Greaters the than.
+		/// Returns true if left parameter is greater than the right parameter.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool GreaterThan(T left, T right)
 		{
 			if (ComplexHelperMethods.IsComplexValueType(typeof(T)))
@@ -178,11 +162,8 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Lesses the than.
+		/// Returns true if left parameter is less than the right parameter.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool LessThan(T left, T right)
 		{
 			if (ComplexHelperMethods.IsComplexValueType(typeof(T)))
@@ -193,33 +174,24 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Greaters the than or equal.
+		/// Returns true if left parameter is greater than or equal to the right parameter.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool GreaterThanOrEqual(T left, T right)
 		{
 			return (GreaterThan(left, right) || Equal(left, right));
 		}
 
 		/// <summary>
-		/// Lesses the than or equal.
+		/// Returns true if left parameter is less than or equal tothe right parameter.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool LessThanOrEqual(T left, T right)
 		{
 			return (LessThan(left, right) || Equal(left, right));
 		}
 
 		/// <summary>
-		/// Equals the specified left.
+		/// Returns true if the two values are equal.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool Equal(T left, T right)
 		{
 			if (left == null)
@@ -230,21 +202,16 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Nots the equal.
+		/// Returns true if the two values are NOT equal.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool NotEqual(T left, T right)
 		{
 			return !Equal(left, right);
 		}
 
 		/// <summary>
-		/// Squares the root.
+		/// Square root of T
 		/// </summary>
-		/// <param name="input">The input.</param>
-		/// <returns>T.</returns>
 		public static T SquareRoot(T input)
 		{
 			Type typeFromHandle = typeof(T);
@@ -256,43 +223,32 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Mods the pow.
+		/// Performs modulus division on a number raised to the power of another number.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <param name="exponent">The exponent.</param>
-		/// <param name="modulus">The modulus.</param>
-		/// <returns>T.</returns>
-		public static T ModPow(T value, int exponent, T modulus)
+		public static T ModPow(T value, T exponent, T modulus)
 		{
 			return GenericArithmeticFactory<T>.CreateModPowFunction().Invoke(value, exponent, modulus);
 		}
 
 		/// <summary>
-		/// Truncates the specified input.
+		/// Truncates the specified input to the nearest integer.
 		/// </summary>
-		/// <param name="input">The input.</param>
-		/// <returns>T.</returns>
 		public static T Truncate(T input)
 		{
 			return GenericArithmeticFactory<T>.CreateTruncateFunction().Invoke(input);
 		}
 
 		/// <summary>
-		/// Parses the specified input.
+		/// Parses a string into an instance of T.
 		/// </summary>
-		/// <param name="input">The input.</param>
-		/// <returns>T.</returns>
 		public static T Parse(string input)
 		{
 			return GenericArithmeticFactory<T>.CreateParseFunction().Invoke(input);
 		}
 
 		/// <summary>
-		/// Determines the maximum of the parameters.
+		/// Returns the larger value of two values, left or right.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns>T.</returns>
 		public static T Max(T left, T right)
 		{
 			if (GreaterThanOrEqual(left, right))
@@ -303,20 +259,17 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Abses the specified input.
+		/// Returns the absolute value of T
 		/// </summary>
-		/// <param name="input">The input.</param>
-		/// <returns>T.</returns>
 		public static T Abs(T input)
 		{
 			return GenericArithmeticFactory<T>.CreateAbsFunction().Invoke(input);
 		}
 
 		/// <summary>
-		/// Signs the specified input.
+		/// Gets a number that indicates the sign (negative, positive, or zero) of the current.
+		/// This will return a -1 for negative numbers, 1 for positive numbers, or zero if the number is zero.
 		/// </summary>
-		/// <param name="input">The input.</param>
-		/// <returns>System.Int32.</returns>
 		public static int Sign(T input)
 		{
 			if (GreaterThan(input, Zero))
@@ -331,12 +284,8 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Divs the rem.
+		/// Returns the remainder of division.
 		/// </summary>
-		/// <param name="dividend">The dividend.</param>
-		/// <param name="divisor">The divisor.</param>
-		/// <param name="remainder">The remainder.</param>
-		/// <returns>T.</returns>
 		public static T DivRem(T dividend, T divisor, out T remainder)
 		{
 			T rem = Modulo(dividend, divisor);
@@ -345,10 +294,8 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Clones the specified object.
+		/// Clones the instance of T
 		/// </summary>
-		/// <param name="obj">The object.</param>
-		/// <returns>T.</returns>
 		public static T Clone(T obj)
 		{
 			if (_memberwiseCloneFunction == null)
@@ -359,21 +306,16 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// GCDs the specified array.
+		/// Returns the Greatest Common Denominator of an array of T.
 		/// </summary>
-		/// <param name="array">The array.</param>
-		/// <returns>T.</returns>
 		public static T GCD(IEnumerable<T> array)
 		{
 			return array.Aggregate(GCD);
 		}
 
 		/// <summary>
-		/// GCDs the specified left.
+		/// Returns the Greatest Common Denominator of left and right.
 		/// </summary>
-		/// <param name="left">The left.</param>
-		/// <param name="right">The right.</param>
-		/// <returns>T.</returns>
 		public static T GCD(T left, T right)
 		{
 			if (ComplexHelperMethods.IsComplexValueType(typeof(T))
@@ -401,18 +343,16 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Logs the specified value.
+		/// Returns the logarithm of T for the specified base.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <param name="baseValue">The base value.</param>
-		/// <returns>T.</returns>
 		public static T Log(T value, double baseValue)
 		{
 			return GenericArithmeticFactory<T>.CreateLogFunction().Invoke(value, baseValue);
 		}
 
 		/// <summary>
-		/// Returns all divisors of an integer, including 1 and itself.
+		/// Returns a list of all of the prime divisors for an integer.
+		/// Includes 1 and itself.
 		/// </summary>
 		public static List<T> GetAllDivisors(T value)
 		{
@@ -454,10 +394,10 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Gets all divisors integer implementation.
+		/// Returns a list of all of the prime divisors for an integer.
+		/// Includes 1 and itself.
+		/// This version uses type int counting variables.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <returns>List&lt;T&gt;.</returns>
 		private static List<T> GetAllDivisors_IntegerImpl(T value)
 		{
 			int n = ConvertImplementation<T, int>.Convert(value);
@@ -496,10 +436,8 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Determines whether [is whole number] [the specified value].
+		/// Returns true if the value is a whole number integer (with no fractional part), false otherwise.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <returns><c>true</c> if [is whole number] [the specified value]; otherwise, <c>false</c>.</returns>
 		public static bool IsWholeNumber(T value)
 		{
 			Type typeFromHandle = typeof(T);
@@ -538,10 +476,8 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Determines whether [is floating point type] [the specified type].
+		/// Returns true if the type T is a floating point type, false otherwise.
 		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <returns><c>true</c> if [is floating point type] [the specified type]; otherwise, <c>false</c>.</returns>
 		public static bool IsFloatingPointType(Type type)
 		{
 			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -564,10 +500,8 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Determines whether [is integer type] [the specified type].
+		/// Returns true if the type T is a integer type (not a floating point number, decimal, fraction or rational number), false otherwise.
 		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <returns><c>true</c> if [is integer type] [the specified type]; otherwise, <c>false</c>.</returns>
 		public static bool IsIntegerType(Type type)
 		{
 			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -609,20 +543,16 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Determines whether [is fractional value] [the specified value].
+		/// Returns true if the value is not a whole number integer (contains some fractional part), false otherwise.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <returns><c>true</c> if [is fractional value] [the specified value]; otherwise, <c>false</c>.</returns>
 		public static bool IsFractionalValue(T value)
 		{
 			return (GenericArithmeticCommon.IsArithmeticValueType(value.GetType()) && !IsWholeNumber(value));
 		}
 
 		/// <summary>
-		/// Squares the root internal.
+		/// An internal, fully generic square root implementation (in case we cant find a Sqrt method on type T).
 		/// </summary>
-		/// <param name="input">The input.</param>
-		/// <returns>T.</returns>
 		internal static T SquareRootInternal(T input)
 		{
 			if (Equal(input, Zero)) { return Zero; }
@@ -645,22 +575,17 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Mods the pow internal.
+		/// Performs modulus division on a number raised to the power of another number.
 		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <param name="exponent">The exponent.</param>
-		/// <param name="modulus">The modulus.</param>
-		/// <returns>T.</returns>
-		internal static T ModPowInternal(T value, int exponent, T modulus)
+		internal static T ModPowInternal(T value, T exponent, T modulus)
 		{
 			T power = Power(value, exponent);
 			return Modulo(power, modulus);
 		}
 
 		/// <summary>
-		/// Converts to bytes.
+		/// Converts T to bytes.
 		/// </summary>
-		/// <param name="input">The input.</param>
 		/// <returns>System.Byte[].</returns>
 		public static byte[] ToBytes(T input)
 		{
@@ -676,7 +601,7 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// Prints the value of T in a nice formatted way.
 		/// </summary>
 		/// <param name="input">The input.</param>
 		/// <returns>A <see cref="System.String" /> that represents this instance.</returns>
@@ -686,7 +611,7 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// Prints the value of T in a nice formatted way.
 		/// Allows passing in some custom number format tokens.
 		/// </summary>
 		/// <param name="input">The input.</param>
@@ -718,7 +643,7 @@ namespace ExtendedArithmetic
 		}
 
 		/// <summary>
-		/// Class ConvertImplementation.
+		/// A class to help in-line conversion of type expressions.
 		/// </summary>
 		/// <typeparam name="TFrom">The type of the t from.</typeparam>
 		/// <typeparam name="TTo">The type of the t to.</typeparam>

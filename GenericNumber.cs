@@ -72,6 +72,9 @@ namespace ExtendedArithmetic
 
 		#region Overloads
 
+		/// <summary>
+		/// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+		/// </summary>
 		public int Compare(GenericNumber<T> x, GenericNumber<T> y)
 		{
 			if (!GenericArithmetic<T>.Equal(x, y))
@@ -81,6 +84,9 @@ namespace ExtendedArithmetic
 			return 0;
 		}
 
+		/// <summary>
+		/// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+		/// </summary>
 		public int Compare(object x, object y)
 		{
 			GenericNumber<T> castedX = x as GenericNumber<T>;
@@ -96,11 +102,17 @@ namespace ExtendedArithmetic
 			return Compare(castedX, castedY);
 		}
 
+		/// <summary>
+		/// Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
+		/// </summary>
 		public int CompareTo(GenericNumber<T> other)
 		{
 			return Compare(this, other);
 		}
 
+		/// <summary>
+		/// Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
+		/// </summary>
 		public int CompareTo(object obj)
 		{
 			GenericNumber<T> castedOther = obj as GenericNumber<T>;
@@ -108,12 +120,19 @@ namespace ExtendedArithmetic
 			return this.CompareTo(castedOther);
 		}
 
+
+		/// <summary>
+		/// Indicates whether the current object is equal to another object of the same type.
+		/// </summary>
 		public bool Equals(GenericNumber<T> other)
 		{
 			if (other == null) { return false; }
 			return GenericArithmetic<T>.Equal(this.Value, other.Value);
 		}
 
+		/// <summary>
+		/// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+		/// </summary>
 		public override bool Equals(object obj)
 		{
 			GenericNumber<T> castedOther = obj as GenericNumber<T>;
@@ -121,16 +140,25 @@ namespace ExtendedArithmetic
 			return this.Equals(castedOther);
 		}
 
+		/// <summary>
+		/// Returns a hash code for this instance.
+		/// </summary>
 		public override int GetHashCode()
 		{
 			return Value.GetHashCode();
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// </summary>
 		public string ToString(string format, IFormatProvider formatProvider)
 		{
 			return GenericArithmetic<T>.ToString(Value, formatProvider);
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// </summary>
 		public override string ToString()
 		{
 			return GenericArithmetic<T>.ToString(Value);

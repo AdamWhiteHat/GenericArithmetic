@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net45;net46;net48;netstandard2.1;netcoreapp3.1;net5.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net45;net48;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -10,7 +10,7 @@
 		<AssemblyName>ExtendedArithmetic.GenericArithmetic</AssemblyName>
 		<AssemblyTitle>ExtendedArithmetic.GenericArithmetic</AssemblyTitle>
 		<PackageId>ExtendedArithmetic.GenericArithmetic</PackageId>
-		<Description>A generic arithmetic library. Allow you to perform arithmetic on any numeric type. All .NET numeric value types, and any custom numeric types--just overload the numeric operators.</Description>
+		<Description>A generic arithmetic library. Allows you to perform arithmetic on any numeric type. All .NET numeric value types are supported, as is any custom numeric type--just implement the numeric operator overloads.</Description>
 		<Authors>Adam White</Authors>
 		<Company>Adam White</Company>
 		<Copyright>Made by Adam White</Copyright>

@@ -28,7 +28,7 @@ namespace ExtendedArithmetic
 		/// </summary>
 		/// <param name="fromType">The type to convert.</param>
 		/// <returns>A TypeCode that reflects the type of parameter fromType.</returns>
-		internal static TypeCode GetTypeCode(Type fromType)
+		public static TypeCode GetTypeCode(Type fromType)
 		{
 			Type type = fromType;
 			if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
