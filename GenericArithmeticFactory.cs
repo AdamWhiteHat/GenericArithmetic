@@ -9,7 +9,7 @@ using System.Globalization;
 namespace ExtendedArithmetic
 {
 	/// <summary>
-	/// Class GenericArithmeticFactory.
+	/// Static class with static methods for obtaining delegates to arithmetic operations.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public static class GenericArithmeticFactory<T>
@@ -217,6 +217,35 @@ namespace ExtendedArithmetic
 			MethodCallExpression methodCall = Expression.Call(method, parameter);
 			Func<T, T> result = Expression.Lambda<Func<T, T>>(methodCall, parameter).Compile();
 			_unaryExpressionDictionary.Add(nameof(Math.Sqrt), result);
+			return result;
+		}
+
+		/// <summary>
+		/// Returns a delegate that calls Math.Sign for .NET value types,
+		/// fails otherwise
+		/// </summary>
+		public static Func<T, int> CreateSignFunction()
+		{
+			//if (_unaryExpressionDictionary.ContainsKey(nameof(Math.Sign)))
+			//{
+			//	return _unaryExpressionDictionary[nameof(Math.Sign)];
+			//}
+
+			MethodInfo method;
+			Type typeFromHandle = typeof(T);
+			if (GenericArithmeticCommon.IsArithmeticValueType(typeFromHandle))
+			{
+				method = typeof(Math).GetMethod("Sign", BindingFlags.Static | BindingFlags.Public);
+			}
+			else
+			{
+				throw new NotImplementedException();
+			}
+
+			ParameterExpression parameter = Expression.Parameter(typeFromHandle, "value");
+			MethodCallExpression methodCall = Expression.Call(method, parameter);
+			Func<T, int> result = Expression.Lambda<Func<T, int>>(methodCall, parameter).Compile();
+			//_unaryExpressionDictionary.Add(nameof(Math.Sign), result);
 			return result;
 		}
 

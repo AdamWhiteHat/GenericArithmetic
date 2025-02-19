@@ -8,6 +8,11 @@ using System.Globalization;
 
 namespace ExtendedArithmetic
 {
+	/// <summary>
+	/// The Generic Arithmetic Class.
+	/// Instead of instantiating this class, use the <see cref="GenericArithmeticFactory{T}"/> to obtain delegates to the arithmetic functions.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public static class GenericArithmetic<T>
 	{
 		/// <summary>Gets a value that represents the number negative one (-1).</summary>
