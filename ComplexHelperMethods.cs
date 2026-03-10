@@ -75,6 +75,15 @@ namespace ExtendedArithmetic
 				throw new Exception("T must be a Complex type.");
 			}
 
+			if (left == null)
+			{
+				throw new ArgumentNullException(nameof(left), "Parameter cannot be null.");
+			}
+			if (right == null)
+			{
+				throw new ArgumentNullException(nameof(right), "Parameter cannot be null.");
+			}
+
 			if (typeof(T) == typeof(Complex))
 			{
 				Complex? l = left as Complex?;

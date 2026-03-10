@@ -277,6 +277,11 @@ namespace ExtendedArithmetic
 		/// </summary>
 		public static int Sign(T input)
 		{
+			if (ComplexHelperMethods.IsComplexValueType(typeof(T)))
+			{
+				return ComplexHelperMethods.ComplexGetRealPartSign<T>(input);
+			}
+
 			if (GreaterThan(input, Zero))
 			{
 				return 1;

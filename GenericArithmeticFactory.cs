@@ -205,7 +205,12 @@ namespace ExtendedArithmetic
 			}
 			else
 			{
-				method = typeFromHandle.GetMethod("Sqrt", BindingFlags.Static | BindingFlags.Public);
+				var methods = typeFromHandle.GetMethods(BindingFlags.Static | BindingFlags.Public);
+				var sqrtMethods = methods.Where(mi => mi.Name == "Sqrt");
+				sqrtMethods = sqrtMethods.Where(mi => mi.GetParameters().Count() == 1);
+				sqrtMethods = sqrtMethods.Where(mi => mi.GetParameters()[0].ParameterType.IsAssignableFrom(typeFromHandle));
+
+				method = sqrtMethods.FirstOrDefault();
 			}
 
 			if (method == null)
@@ -363,7 +368,8 @@ namespace ExtendedArithmetic
 			else
 			{
 				var methods = typeFromHandle.GetMethods(BindingFlags.Static | BindingFlags.Public);
-				var powMethods = methods.Where(mi => mi.Name == "Pow").ToList();
+				var powMethods = methods.Where(mi => mi.Name == "Pow");
+				powMethods = powMethods.Where(mi => mi.GetParameters().Count() == 2);
 				method = powMethods.FirstOrDefault();
 			}
 
@@ -428,9 +434,10 @@ namespace ExtendedArithmetic
 			else
 			{
 				var methods = typeFromHandle.GetMethods(BindingFlags.Static | BindingFlags.Public);
-				var powMethods = methods.Where(mi => mi.Name == "Pow").ToList();
+				var powMethods = methods.Where(mi => mi.Name == "Pow");
 
-				var expAssignable = powMethods.Where(mi => mi.GetParameters()[1].ParameterType.IsAssignableFrom(typeof(int)));
+				powMethods = powMethods.Where(mi => mi.GetParameters().Count() == 2); 
+				powMethods = powMethods.Where(mi => mi.GetParameters()[1].ParameterType.IsAssignableFrom(typeof(int)));
 
 				method = powMethods.FirstOrDefault();
 			}
