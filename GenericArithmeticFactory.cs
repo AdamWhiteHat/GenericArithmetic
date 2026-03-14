@@ -436,8 +436,8 @@ namespace ExtendedArithmetic
 				var methods = typeFromHandle.GetMethods(BindingFlags.Static | BindingFlags.Public);
 				var powMethods = methods.Where(mi => mi.Name == "Pow");
 
-				powMethods = powMethods.Where(mi => mi.GetParameters().Count() == 2); 
-				powMethods = powMethods.Where(mi => mi.GetParameters()[1].ParameterType.IsAssignableFrom(typeof(int)));
+				powMethods = powMethods.Where(mi => mi.GetParameters().Count() == 2);
+				//powMethods = powMethods.Where(mi => mi.GetParameters()[1].ParameterType.IsAssignableFrom(typeof(int)));
 
 				method = powMethods.FirstOrDefault();
 			}
